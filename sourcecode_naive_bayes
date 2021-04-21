@@ -1,0 +1,30 @@
+#importing packages
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+#import dataset
+iris=load_iris()
+
+#Assign labels to the classes
+features=iris['data']
+labels=iris['target']
+label_names=iris['target_names']
+feature_names=iris['feature_names']
+
+#Print labels and labelled data
+print("Label Names : ",label_names)
+print("Labeled data: \n",labels)
+
+#Organize data into training and testing set
+train, test, train_labels, test_labels = train_test_split(features, labels, test_size=.30, random_state=42)
+
+#Evaluating model using Naïve Bayes algorithm
+gnb_mdl=GaussianNB()
+model=gnb_mdl.fit(train,train_labels)
+test_pred=gnb_mdl.predict(test)
+print("Test Prediction :\n",test_pred)
+
+#Finding and printing the accuracy
+Accu_NB=accuracy_score(test_labels,test_pred)*100
+print("\nThe accuracy of Naive Bayes classifier on iris dataset is :",'%.2f'%Accu_NB  ,"%")
